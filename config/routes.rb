@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   get '/about', to: 'information#about'
 
-  
+
   
 
 
@@ -15,3 +15,20 @@ Rails.application.routes.draw do
   end
   
 end
+
+=begin
+  Lord of my life
+  Here is my heartt
+  Been so good
+  Fear is not my future
+  Costly
+  One name
+  More than Able
+  Firm Foundation
+  Jehovah
+  Yahweh
+  Yahweh will Manifest
+  Yeshua
+  Who is this man?
+  Good (can't be anything else)
+=end

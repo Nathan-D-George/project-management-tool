@@ -12,4 +12,31 @@
  *
  *= require_tree .
  *= require_self
+ *= require font-awesome
  */
+
+ .main-body{
+  background-color: rgb(46, 46, 46);
+ }
+ panel{
+   width: 1000px;
+ }
+ .panel-left{
+   width: 12%;
+   float: left;
+   min-height: 1000px;
+   background-color: rgb(57, 57, 57);
+ }
+ .panel-right{
+   width: 88%;
+   float: right;
+   min-height: 1000px;
+   padding-left: 20px;
+ }
+ 
+ .panel-button{
+   background-color: rgb(57, 57, 57);
+   color: white;
+   width: 230px;
+   height: 50px
+ }
