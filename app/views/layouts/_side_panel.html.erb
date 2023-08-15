@@ -1,12 +1,20 @@
-<div style="padding-left:10px; padding-top:60px">
-  <%= link_to root_path, class:'btn panel-button' do %>
+<div class="row" style="padding-left:10px; padding-top:60px">
+  <%= link_to root_path, class:'btn panel-button col-md-11', style:'text-align:left' do %>
     <%= fa_icon "home"%> Home
   <% end %>
-  <%= link_to about_path, class:'btn panel-button' do %>
+  <%= link_to about_path, class:'btn panel-button col-md-11', style:'text-align:left' do %>
     <%= fa_icon "info-circle"%> About
   <% end %>
-  <%= link_to about_path, class:'btn panel-button' do %>
+  <%= link_to about_path, class:'btn panel-button col-md-11', style:'text-align:left' do %>
     <%= fa_icon "bell"%> Notifications
   <% end %>
 </div>
 <hr>
+<% if current_user.present? %>
+  <div style="padding-left:10px; padding-top:10px">
+    <%= turbo_stream_from "projects" %>
+    <div id="projects">
+      <%= render @projects %> 
+    </div>
+  </div>
+<%end%> 

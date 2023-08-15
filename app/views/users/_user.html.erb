@@ -1,0 +1,6 @@
+<p>
+  <%= link_to add_member_to_project_path(id: user.id), data:{turbo_method: :post}, style:'text-decoration: none; color: white' do %>
+    <%= fa_icon "user"%>
+    <%= user.email %>
+  <% end %>
+</p>

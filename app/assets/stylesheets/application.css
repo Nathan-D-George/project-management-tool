@@ -24,7 +24,7 @@
  .panel-left{
    width: 12%;
    float: left;
-   min-height: 1000px;
+   min-height: 1100px;
    background-color: rgb(57, 57, 57);
  }
  .panel-right{
@@ -37,6 +37,41 @@
  .panel-button{
    background-color: rgb(57, 57, 57);
    color: white;
-   width: 230px;
-   height: 50px
+   height: 50px;
  }
+ .big-block{
+  min-width: 100px;
+  height:250px;
+  background-color: rgb(57, 57, 57);
+  border-radius: 35px;
+  padding: 30px;
+ }
+  .flash-disappear{
+  position: absolute;
+  width: 50%;
+  z-index: 5;
+
+  animation: fade         7s forwards;
+  -webkit-animation: fade 7s forwards;
+  -moz-animation: fade    7s forwards;
+  -o-animation: fade      7s forwards;
+  -ms-animation: fade     7s forwards;
+}
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.disabled-field{
+  pointer-events: none;
+}
