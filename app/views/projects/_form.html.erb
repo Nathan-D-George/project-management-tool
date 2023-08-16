@@ -1,0 +1,21 @@
+<%= form_with model:@project, url: create_project_path do |f| %>
+  <h5 class='mt-4'><%= f.label  :project_leader%></h5>
+  <%= f.text_field :name, placeholder:"#{current_user.email}", class:'form-control disabled-field'%>
+  <h5 class='mt-4'><%= f.label  :project_name%></h5>
+  <%= f.text_field :name, class:'form-control' %>
+  <h5 class='mt-4'><%= f.label  :project_description%></h5>
+  <%= f.text_area  :description, class:'form-control'%>
+  <h5 class='mt-4'><%= f.label :start_date%> </h5>
+  <%= f.select :start_year,  options_for_select(Project.year_options) %>
+  <%= f.select :start_month, options_for_select(Project.month_options) %>
+  <%= f.select :start_day,   options_for_select(Project.day_options) %>
+  <h5 class='mt-4'><%= f.label :end_date%> </h5>
+  <%= f.select :end_year,  options_for_select(Project.year_options) %>
+  <%= f.select :end_month, options_for_select(Project.month_options) %>
+  <%= f.select :end_day,   options_for_select(Project.day_options) %>
+  <div class='col-md-5'>
+    <h5 class='mt-4'><%= f.label :Budget %> (ZAR) </h5>
+    <%= f.number_field :budget, in: 5000.0..500000.0, step: 5000.0, class:'form-control disabled'%>
+  </div>
+  <%= f.submit(@project.new_record? ? "Create Project" : "Update Project", data:{trubo: false}, class:'btn mt-4', style:'background-color: #5c0101 ; color: white') %>
+<% end %>

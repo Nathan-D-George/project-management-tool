@@ -1,5 +1,31 @@
-<p> <%= @project.name %></p>
-   <%= turbo_stream_from "users" %>
-  <div id="users">
-    <%= render @users %>
+<p><h3> <%= @project.name %> </h3> </p>
+ 
+<div class='row'>
+  <div class='col-md-3'>
+    <h4>Members</h4>
+    <% @members.each do |m|%>
+      <p>
+      <%= link_to remove_member_from_project_path(id: m.id), data:{turbo_method: :delete, turbo_confirm: "Remove #{m.email} from Project?"}, style:'text-decoration: none; color: #40c92e' do %>
+        <%= fa_icon "user"%>
+        <%= m.email %>
+      <% end %>
+      </p>
+    <% end %>
+    <% if @project.leader == current_user.id %>
+      <%= link_to "Edit Project", edit_project_path(id: @project.id), class:'btn mt-4', style:'color:white' %>
+    <% end %>
   </div>
+  <div class='col-md-1'></div>
+  <div class='col-md-3'>
+    <h4>Non-Members</h4>
+    <% @non_members.each do |nm|%>
+      <p>
+      <%= link_to add_member_to_project_path(id: nm.id), data:{turbo_method: :post}, style:'text-decoration: none; color: #3b7cd1' do %>
+        <%= fa_icon "user"%>
+        <%= nm.email %>
+      <% end %>
+      </p>
+    <% end %>
+  </div>
+
+</div>

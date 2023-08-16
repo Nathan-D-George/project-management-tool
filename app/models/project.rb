@@ -1,8 +1,23 @@
 class Project < ApplicationRecord
 
   after_create_commit { broadcast_append_to "projects" }
+ 
+  def members
+    members = []
+    User.all.each{|u|
+      members.append(u) if Participant.where(user_id: u.id).all.where(project_id: self.id).present?
+    }
+    members
+  end
 
-  
+  def non_members
+    non_members = []
+    User.all.each{|u|
+      non_members.append(u) if Participant.where(user_id: u.id).all.where(project_id: self.id).blank?
+    }
+    non_members
+  end
+
   def self.day_options
     days = []
     31.times do |d|

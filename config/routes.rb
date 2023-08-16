@@ -1,15 +1,15 @@
 Rails.application.routes.draw do
+  resources :projects, except: [:new, :edit, :destroy, :show]
   get    '/projects/new',     to: 'projects#new',     as: 'new_project'
   post   '/projects/create',  to: 'projects#create',  as: 'create_project'
   get    '/projects/edit',    to: 'projects#edit',    as: 'edit_project'
   patch  '/projects/update',  to: 'projects#update',  as: 'update_project'
-  delete '/projects/destroy', to: 'projects#destroy', as: 'destroy_projects'
+  get    '/projects/destroy', to: 'projects#delete',  as: 'delete_this_project'
+  delete '/projects/destroy', to: 'projects#destroy', as: 'destroy_project'
   get    '/projects/show/:id',to: 'projects#show',    as: 'show_project'
 
-  post   '/projects/add_members', to: 'projects#add_members',      as: 'add_member_to_project'
-
-  # post 'add_member_to_project', to: 'participants#add_member_to_project'
-
+  post   '/projects/add_member', to: 'projects#add_member',      as: 'add_member_to_project'
+  delete '/projects/lose_member', to: 'projects#remove_member',    as: 'remove_member_from_project'
   root to: 'pages#home'
 
   get '/about', to: 'information#about'
@@ -27,7 +27,7 @@ end
 =begin
 
   Lord of my life
-  Here is my heartt
+  Here is my heart
   Been so good
   Fear is not my future
   Costly
