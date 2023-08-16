@@ -1,5 +1,13 @@
-<h2>Delete <%= @project.name %> </h2>
+<div class='row' style='padding-top:20px'>
+  <div class='col-1'></div>
+    <div class='col-md-4'>
 
-<h3> Project deletion is irreversible </h3>
+      <h2>Delete <%= @project.name %>? </h2>
 
-<%= link_to "Delete Project", destroy_project_path(id: @project.id), data:{turbo_method: :delete, turbo_confirm: "Are you Sure?"}, class:'btn btn-danger' %>
+      <h4 class='mt-4 mb-4'> Project deletion is irreversible </h4>
+
+      <%= link_to "Delete Project", destroy_project_path(id: @project.id), data:{turbo_method: :delete, turbo_confirm: "Are you Sure?"}, class:'btn btn-danger' %>
+
+    </div>
+  </div>
+</div>

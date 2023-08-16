@@ -1,31 +1,63 @@
-<p><h3> <%= @project.name %> </h3> </p>
- 
+<p> <h3> <%= @project.name %> </h3> </p>
+<div class='row', style='padding-bottom:20px; text-align:justify'>
+  <div class='col-md-6' >
+    Description<%= @project.description %>
+  </div>
+</div>
+
 <div class='row'>
   <div class='col-md-3'>
-    <h4>Members</h4>
-    <% @members.each do |m|%>
-      <p>
-      <%= link_to remove_member_from_project_path(id: m.id), data:{turbo_method: :delete, turbo_confirm: "Remove #{m.email} from Project?"}, style:'text-decoration: none; color: #40c92e' do %>
-        <%= fa_icon "user"%>
-        <%= m.email %>
-      <% end %>
-      </p>
-    <% end %>
-    <% if @project.leader == current_user.id %>
-      <%= link_to "Edit Project", edit_project_path(id: @project.id), class:'btn mt-4', style:'color:white' %>
-    <% end %>
+    <div class='collapsible col-md-12' id="collapsible">
+      <input type='checkbox' id="collapsible2-head-members">
+      <label for="collapsible2-head-members" style='color: white'> Members </label>
+      <div class="collapsible-text">
+        <% @members.each do |m|%>
+          <p>
+          <%= link_to remove_member_from_project_path(id: m.id), data:{turbo_method: :delete, turbo_confirm: "Remove #{m.email} from Project?"}, style:'text-decoration: none; color: #40c92e' do %>
+            <%= fa_icon "minus-square-o", style:'color:red'%>
+            <%= fa_icon "user"%>
+          <% end %>
+          <%= link_to m.email, show_user_path(id: m.id), style:'text-decoration: none; color: #40c92e' %>
+          </p>
+        <% end %>
+      </div>
+    </div>
+
+
   </div>
   <div class='col-md-1'></div>
   <div class='col-md-3'>
-    <h4>Non-Members</h4>
-    <% @non_members.each do |nm|%>
-      <p>
-      <%= link_to add_member_to_project_path(id: nm.id), data:{turbo_method: :post}, style:'text-decoration: none; color: #3b7cd1' do %>
-        <%= fa_icon "user"%>
-        <%= nm.email %>
-      <% end %>
-      </p>
-    <% end %>
-  </div>
 
+    <div class='collapsible col-md-12' id="collapsible">
+      <input type='checkbox' id="collapsible2-head-nonmembers">
+      <label for="collapsible2-head-nonmembers" style='color: white'> Non-Members </label>
+      <div class="collapsible-text">
+
+        <% @non_members.each do |nm|%>
+          <p>
+          <%= link_to add_member_to_project_path(id: nm.id), data:{turbo_method: :post}, style:'text-decoration: none; color: #3b7cd1' do %>
+            <%= fa_icon "plus-square-o", style:'color:#40c92e' %>
+            <%= fa_icon "user"%>
+          <% end %>
+          <%= link_to nm.email, show_user_path(id: nm.id), style:'text-decoration: none; color: #40c92e' %>
+          </p>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
+
+<% if @project.attachments.attached? && @members.include?(current_user)%>
+  <h4 style='padding-top:30px'> Project Documents </h4>
+  <% @project.attachments.each_with_index do |attachment, index| %>
+    <p style='padding:10px'>
+      <%= link_to url_for(attachment), style:'text-decoration: none; color: white' do %>
+          <%= fa_icon 'file-o' %>
+          <%= attachment.filename %>
+      <% end %>
+    </p>
+  <% end %>
+<% end %>
+<% if @project.leader == current_user.id %>
+  <%= link_to "Edit Project", edit_project_path(id: @project.id), class:'btn mt-4', style:'color:white; background-color: rgb(57,57,57)' %>
+<% end %>

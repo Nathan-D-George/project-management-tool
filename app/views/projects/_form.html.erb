@@ -5,17 +5,31 @@
   <%= f.text_field :name, class:'form-control' %>
   <h5 class='mt-4'><%= f.label  :project_description%></h5>
   <%= f.text_area  :description, class:'form-control'%>
-  <h5 class='mt-4'><%= f.label :start_date%> </h5>
-  <%= f.select :start_year,  options_for_select(Project.year_options) %>
-  <%= f.select :start_month, options_for_select(Project.month_options) %>
-  <%= f.select :start_day,   options_for_select(Project.day_options) %>
-  <h5 class='mt-4'><%= f.label :end_date%> </h5>
-  <%= f.select :end_year,  options_for_select(Project.year_options) %>
-  <%= f.select :end_month, options_for_select(Project.month_options) %>
-  <%= f.select :end_day,   options_for_select(Project.day_options) %>
-  <div class='col-md-5'>
-    <h5 class='mt-4'><%= f.label :Budget %> (ZAR) </h5>
-    <%= f.number_field :budget, in: 5000.0..500000.0, step: 5000.0, class:'form-control disabled'%>
+  <div class='row'>
+    <div class='col-6'>
+      <h5 class='mt-4'><%= f.label :start_date%> </h5>
+      <%= f.select :start_year,  options_for_select(Project.year_options) %>
+      <%= f.select :start_month, options_for_select(Project.month_options) %>
+      <%= f.select :start_day,   options_for_select(Project.day_options) %>
+    </div>
+    <div class='col-6'>
+      <h5 class='mt-4'><%= f.label :end_date%> </h5>
+      <%= f.select :end_year,  options_for_select(Project.year_options) %>
+      <%= f.select :end_month, options_for_select(Project.month_options) %>
+      <%= f.select :end_day,   options_for_select(Project.day_options) %>
+    </div>
   </div>
-  <%= f.submit(@project.new_record? ? "Create Project" : "Update Project", data:{trubo: false}, class:'btn mt-4', style:'background-color: #5c0101 ; color: white') %>
+
+  <div class='row'>
+    <div class='col-md-6'>
+      <h5 class='mt-4'><%= f.label :Budget %> (ZAR) </h5>
+      <%= f.number_field :budget, in: 5000.0..500000.0, step: 5000.0, class:'form-control disabled'%>
+    </div>
+    <div class='col-6'>
+      <h5 class='mt-4'><%= f.label :project_files %></h5>
+      <%= f.file_field(:attachments, multiple: true)%>  
+    </div>
+  </div>
+  <%= f.submit(@project.new_record? ? "Create Project" : "Update Project", data:{turbo: false}, class:'btn mt-4', style:'background-color: #5c0101 ; color: white') %>
 <% end %>
+<%= link_to "Cancel", ( @project.new_record? ? root_path : show_project_path(id: @project.id) ), class:'btn btn-secondary mt-4 mb-4' %>

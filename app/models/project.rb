@@ -1,7 +1,9 @@
 class Project < ApplicationRecord
 
   after_create_commit { broadcast_append_to "projects" }
- 
+  
+  has_many_attached :attachments, dependent: :destroy
+  
   def members
     members = []
     User.all.each{|u|

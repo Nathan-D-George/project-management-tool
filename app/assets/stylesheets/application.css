@@ -75,3 +75,93 @@
 .disabled-field{
   pointer-events: none;
 }
+
+.collapsible{
+  max-width: 1020px;
+  overflow: hidden;
+  font-weight: 400;
+}
+.collapsible input{
+  display: none;
+}
+.collapsible label {
+  position: relative;
+  font-weight: 600;
+  background: rgb(57, 57, 57);
+  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.5),0 2px 15px 0 rgba(0, 0, 0, .08);
+  color:rgb(0, 0, 0);
+  display: block;
+  margin-bottom: 10px;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 4px;
+  z-index: 1
+}
+.collapsible label:after{
+  content: "";
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  width: 18px;
+  height: 25px;
+  background: url(arrow.svg) no-repeat 0 0;
+  transition: all 0.3s ease;
+}
+.collapsible input:checked + label:after{
+  transform: rotate(90deg);
+}
+
+.collapsible-text{
+  max-height: 0px;
+  overflow: auto;
+  border-radius: 4px;
+  line-height: 1.4;
+  position: relative;
+  top: -100%;
+  opacity: 1.0;
+  transition: all 0.3s ease;
+}
+.collapsible input:checked ~ .collapsible-text{
+  max-height: 490px;
+  width: 1020;
+  /* padding-bottom: 25px; */
+  background: rgb(46, 46, 46);
+  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.1),0 4px 11px 0 rgba(0, 0, 0, 0.775);
+  opacity: 1;
+  top:0;
+
+}
+.collapsible-text h4{
+  margin-bottom: 10px;
+  padding: 15px 15px 0;
+  color: #000000;
+}
+.collapsible-text p{
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.flash-disappear{
+  position: absolute;
+  width: 50%;
+  z-index: 5;
+
+  animation: fade 3s forwards;
+  -webkit-animation: fade 3s forwards;
+  -moz-animation: fade 3s forwards;
+  -o-animation: fade 3s forwards;
+  -ms-animation: fade 3s forwards;
+}
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

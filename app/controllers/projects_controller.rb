@@ -1,7 +1,8 @@
 class ProjectsController < ApplicationController
   before_action :logged_in_only
   before_action :project_leaders_only, only: [:edit, :delete, :add_member, :remove_member]
-  $temp_id = nil
+  $proj_id = nil
+  
 
   def new
     @project  = Project.new
@@ -12,6 +13,7 @@ class ProjectsController < ApplicationController
   def create
     project = Project.new
     project.description = params[:project][:description]
+    project.attachments = params[:project][:attachments] if params[:project][:attachments].present?
     project.name   = params[:project][:name]    
     project.budget = params[:project][:budget]
     start_parts    = [params[:project][:start_year],params[:project][:start_month],params[:project][:start_day]]
@@ -23,6 +25,10 @@ class ProjectsController < ApplicationController
     project.leader = current_user.id
     if project.save
       flash[:notice] = 'Project successfully created'
+      participant = Participant.new
+      participant.user_id = current_user.id
+      participant.project_id = project.id
+      participant.save
       redirect_to show_project_path(id: project.id)
     else
       flash[:alert]  = 'Something went wrong'
@@ -33,7 +39,7 @@ class ProjectsController < ApplicationController
   def show
     @project = Project.find(params[:id])
     @users   = User.all_except(current_user)
-    $temp_id = params[:id].to_i
+    $proj_id = params[:id].to_i
     @members = @project.members
     @non_members = @project.non_members
     console
@@ -42,31 +48,31 @@ class ProjectsController < ApplicationController
   def add_member
     participant = Participant.new
     participant.user_id = params[:id]
-    participant.project_id = $temp_id
+    participant.project_id = $proj_id
     if participant.save
       flash[:notice] = "Added member to project"
     else
       flash[:alert]  = "Something went wrong"
     end
-    redirect_to show_project_path(id: $temp_id)
+    redirect_to show_project_path(id: $proj_id)
   end
 
   def remove_member
     user = User.find(params[:id].to_i)
-    @participant = Participant.where(user_id: user.id, project_id: $temp_id).first
+    @participant = Participant.where(user_id: user.id, project_id: $proj_id).first
     @participant.destroy
     flash[:notice] = "Removed member to project"
-    redirect_to show_project_path(id: $temp_id) 
+    redirect_to show_project_path(id: $proj_id) 
   end
 
   def edit
     @project = Project.find(params[:id])
     @users   = User.all_except(current_user)
-    $temp_id = params[:id].to_i
+    $proj_id = params[:id].to_i
   end
 
   def update
-    project = Project.find($temp_id)
+    project = Project.find($proj_id)
     project.description = params[:project][:description]
     project.name        = params[:project][:name]    
     project.budget      = params[:project][:budget]
@@ -97,7 +103,7 @@ class ProjectsController < ApplicationController
   private
 
   def project_leaders_only
-    redirect_to show_project_path($temp_id), alert: 'You must be project leader to access this page' if current_user.role != "leader"
+    redirect_to show_project_path(id: $proj_id), alert: 'Project leaders only.' if current_user.role != "leader"
   end
   
 end

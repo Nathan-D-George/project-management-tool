@@ -1,11 +1,11 @@
-<div class='row'>
+<div class='row' style='padding-top:30px'>
   <div class='col-4'></div>
     <div class='col-md-4'>
     <h1>Edit Project: <%= @project.name %> </h1>
       <%= render 'form' %>
     </div>
   </div>
+  <% if @project.leader == current_user.id %>
+    <%= link_to "Delete Project", delete_this_project_path(id: @project.id), class:'btn btn-danger', style:'width:200px;' %>
+  <% end %>
 </div>
-<% if @project.leader == current_user.id %>
-  <%= link_to "Delete Project", delete_this_project_path(id: @project.id), class:'btn btn-danger', style:'width:160px; height:60px' %>
-<% end %>
