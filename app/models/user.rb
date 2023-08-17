@@ -3,6 +3,12 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+         
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  validates :email, presence: true, 
+             uniqueness: {case_sensitive: false},
+             length: {minimum:  4, maximum:  40},
+             format: {with: VALID_EMAIL_REGEX}
 
   scope :all_except, -> (user) {where.not(id: user)}
   

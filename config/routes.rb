@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  resources :tasks, except: [:new, :edit, :destroy, :show]
+  get    '/tasks/new',     to: 'tasks#new',     as: 'new_task'
+  post   '/tasks/create',  to: 'tasks#create',  as: 'create_task'
+  get    '/tasks/edit',    to: 'tasks#edit',    as: 'edit_task'
+  patch  '/tasks/update',  to: 'tasks#update',  as: 'update_task'
+  delete '/tasks/destroy', to: 'tasks#destroy', as: 'destroy_task'
+  get    '/tasks/show',    to: 'tasks#show',    as: 'show_task'
+  
   resources :milestones, except: [:new, :edit, :destroy, :show]
   get    '/milestones/new',     to: 'milestones#new',     as: 'new_milestone'
   get    '/milestones/show',    to: 'milestones#show',    as: 'show_milestone'

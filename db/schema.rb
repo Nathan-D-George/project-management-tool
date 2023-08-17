@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_17_051839) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_17_120408) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -71,6 +71,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_17_051839) do
     t.integer "leader"
   end
 
+  create_table "tasks", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.date "baseline_start_date"
+    t.date "start_date"
+    t.date "baseline_end_date"
+    t.date "end_date"
+    t.boolean "complete", default: false
+    t.integer "assigned_to"
+    t.integer "milestone_id", null: false
+    t.index ["milestone_id"], name: "index_tasks_on_milestone_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -89,4 +102,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_17_051839) do
   add_foreign_key "milestones", "projects"
   add_foreign_key "participants", "projects"
   add_foreign_key "participants", "users"
+  add_foreign_key "tasks", "milestones"
 end

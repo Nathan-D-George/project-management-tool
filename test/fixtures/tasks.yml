@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyText
+  start_date: 2023-08-17
+  end_date: 2023-08-17
+  complete: false
+  user: one
+  milestone: one
+
+two:
+  name: MyString
+  description: MyText
+  start_date: 2023-08-17
+  end_date: 2023-08-17
+  complete: false
+  user: two
+  milestone: two
