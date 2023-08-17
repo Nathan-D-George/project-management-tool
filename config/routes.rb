@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  resources :milestones, except: [:new, :edit, :destroy, :show]
+  get    '/milestones/new',     to: 'milestones#new',     as: 'new_milestone'
+  get    '/milestones/show',    to: 'milestones#show',    as: 'show_milestone'
+  post   '/milestones/create',  to: 'milestones#create',  as: 'create_milestone'
+  get    '/milestones/edit',    to: 'milestones#edit',    as: 'edit_milestone'
+  patch  '/milestones/update',  to: 'milestones#update',  as: 'update_milestone'
+  delete '/milestones/destroy', to: 'milestones#destroy', as: 'destroy_milestone'
+
   resources :projects, except: [:new, :edit, :destroy, :show]
   get    '/projects/new',     to: 'projects#new',     as: 'new_project'
   post   '/projects/create',  to: 'projects#create',  as: 'create_project'
@@ -32,6 +40,7 @@ end
   Fear is not my future
   Costly
   One name
+  Build your church
   More than Able
   Firm Foundation
   Jehovah

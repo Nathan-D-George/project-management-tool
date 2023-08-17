@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_16_090232) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_17_051839) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -37,6 +37,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_16_090232) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "milestones", force: :cascade do |t|
+    t.string "name"
+    t.text "description", default: "Description"
+    t.date "start_date"
+    t.date "baseline_start_date"
+    t.date "end_date"
+    t.date "baseline_end_date"
+    t.integer "completion", default: 0
+    t.integer "project_id", null: false
+    t.index ["project_id"], name: "index_milestones_on_project_id"
   end
 
   create_table "participants", force: :cascade do |t|
@@ -74,6 +86,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_16_090232) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "milestones", "projects"
   add_foreign_key "participants", "projects"
   add_foreign_key "participants", "users"
 end

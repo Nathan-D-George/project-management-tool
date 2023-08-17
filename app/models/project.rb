@@ -3,6 +3,8 @@ class Project < ApplicationRecord
   after_create_commit { broadcast_append_to "projects" }
   
   has_many_attached :attachments, dependent: :destroy
+
+  has_many :milestones, dependent: :destroy
   
   def members
     members = []

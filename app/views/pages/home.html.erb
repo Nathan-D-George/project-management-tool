@@ -1,23 +1,32 @@
 <h1><%= fa_icon 'snowflake-o' %> Miyako</h1>
 <p>A Project Management Tool</p>
 <% if current_user.present? %>
+  <div class='row' style='margin-left:20px'>
+    
+    <div class="big-block col-md-3" style='margin-right: 30px'>
+      <div>
+        <%= link_to  new_project_path, class:'btn panel-button' do %> 
+          <%= fa_icon "plus-square-o"%> Project
+        <% end %>
+      </div>
+    </div>
+    <% @projects.each do |project| %>
+    <div class="big-block col-md-3 mb-4" style='margin-right:30px;'>
+      <div style="padding-left:10px;">
+        <%= turbo_stream_from "projects" %>
+        <div id="projects">
+          <%= render project%> 
+        </div>
+      </div>
+    </div>
+    <% end %>
+
+  </div>
   <%= turbo_stream_from "users" %>
   <div id="users">
     <%= render @users %>
   </div>
-  <div class="big-block col-md-3">
-    <div>
-      <%= link_to  new_project_path, class:'btn panel-button' do %> 
-        <%= fa_icon "plus-square-o"%> Project
-      <% end %>
-    </div>
-    <div style="padding-left:10px">
-      <%= turbo_stream_from "projects" %>
-      <div id="projects">
-        <%= render @projects %> 
-      </div>
-    </div>
-  </div>
+  
 <% else %>
   <%= link_to "Log in",  new_user_session_path, class:'btn btn-outline-primary' %>
   <%= link_to "Sign Up", new_user_registration_path, class:'btn btn-outline-success' %>

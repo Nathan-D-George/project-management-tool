@@ -2,12 +2,11 @@ class ProjectsController < ApplicationController
   before_action :logged_in_only
   before_action :project_leaders_only, only: [:edit, :delete, :add_member, :remove_member]
   $proj_id = nil
-  
+
 
   def new
     @project  = Project.new
     @users    = User.all_except(current_user)
-    console
   end
 
   def create
@@ -42,10 +41,11 @@ class ProjectsController < ApplicationController
     $proj_id = params[:id].to_i
     @members = @project.members
     @non_members = @project.non_members
-    console
+    @milestones = Milestone.all.where(project_id: @project.id)
   end
 
   def add_member
+    return if current_user.id != $proj_id
     participant = Participant.new
     participant.user_id = params[:id]
     participant.project_id = $proj_id
@@ -58,6 +58,7 @@ class ProjectsController < ApplicationController
   end
 
   def remove_member
+    return if current_user.id != $proj_id
     user = User.find(params[:id].to_i)
     @participant = Participant.where(user_id: user.id, project_id: $proj_id).first
     @participant.destroy
@@ -77,9 +78,9 @@ class ProjectsController < ApplicationController
     project.name        = params[:project][:name]    
     project.budget      = params[:project][:budget]
     start_parts         = [params[:project][:start_year],params[:project][:start_month],params[:project][:start_day]]
-    project.start_date  = start_parts.join('/').to_date
+    project.start_date  = start_parts.join('/').to_date if start_parts.join('/').to_date > project.start_date
     end_parts           = [params[:project][:end_year],params[:project][:end_month],params[:project][:end_day]]
-    project.end_date    = end_parts.join('/').to_date
+    project.end_date    = end_parts.join('/').to_date   if end_parts.join('/').to_date > project.start_date
     if project.save
       flash[:notice] = 'Project successfully updated'
       redirect_to show_project_path(id: project.id)

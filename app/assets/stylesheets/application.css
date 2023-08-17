@@ -165,3 +165,7 @@
     opacity: 0;
   }
 }
+.show_button{
+  color: white;
+  background-color: rgb(57, 57, 57);
+}
