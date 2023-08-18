@@ -37,4 +37,5 @@ class Project < ApplicationRecord
   def self.year_options
     (Date.today.year..(Date.today.year+10)).to_a
   end
+  
 end

@@ -11,5 +11,5 @@
   <div class='row' style='margin-left:0px'>
     Tasks List
   </div>
-  <%= link_to "New Task", "#", class:'btn mt-4 mb-4 show_button' %>
+  <%= link_to "New Task", new_task_path(id: @milestone.id), class:'btn mt-4 mb-4 show_button' %>
 </div>

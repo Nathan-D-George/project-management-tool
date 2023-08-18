@@ -1,0 +1,28 @@
+<%= form_with model:@task, url: create_task_path do |t| %>
+  <%= t.label :task_name %>
+  <%= t.text_field :name, class:'form-control' %>
+
+  <%= t.label :description %>
+  <%= t.text_area :description, class:'form-control' %>
+
+  <div class='row'>
+    <div class='col-6'>
+      <p> <h4> <%= t.label :start_date %> </h4> </p>
+      <%= t.select :start_day,   options_for_select(Task.day_options)   %>
+      <%= t.select :start_month, options_for_select(Task.month_options) %>
+      <%= t.select :start_year,  options_for_select(Task.year_options)  %>
+    </div>
+    <div class='col-6'>
+      <p> <h4> <%= t.label :end_date %> </h4> </p>
+      <%= t.select :end_day,   options_for_select(Task.day_options)   %>
+      <%= t.select :end_month, options_for_select(Task.month_options) %>
+      <%= t.select :end_year,  options_for_select(Task.year_options)  %>
+    </div>
+  </div>
+  <div class='col-6'>
+    <p> <h4> <%= t.label :Assignee %> </h4> </p>
+    <%= t.select :assignee, options_for_select(@members) %>
+  </div>
+  <p> <%= t.submit(@task.new_record? ? "Create Task" : "Update Task", class:'btn mt-4', style:'color: white; background-color: #5c0101')%> </p>
+<% end %>
+<p> <%= link_to "Cancel", show_milestone_path(id: @task.milestone), class:'btn btn-secondary' %> </p>
