@@ -1,0 +1,9 @@
+<% @tasks.each do |t| %>
+  <div class='row'>
+  <% if t.complete %>
+    <p><%= link_to t.name, show_task_path(id: t.id), style:'color: white; text-decoration: none' %></p>
+  <% else %>
+    <p><%= link_to t.name, show_task_path(id: t.id), style:'color: red; text-decoration: none' %></p>
+  <% end %>
+  </div>
+<% end %>

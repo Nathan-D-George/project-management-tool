@@ -65,12 +65,14 @@ class TasksController < ApplicationController
     task = Task.find($task_id)
     task.name = params[:task][:name]
     task.description  = params[:task][:description]
-    task.assigned_to  = User.where(email: params[:task][:assignee]).first.id
+    task.assigned_to  = User.where(email: params[:task][:assignee]).first.id if params[:task][:assignee] != "admin@admin.com"
+
+    params[:task][:complete] == "true" ? task.complete = true : task.complete = false
 
     days = get_start_and_end_dates_parts
     start_day        = days[:start].join('/').to_date
     end_day          = days[:end].join('/').to_date
-    
+
     if start_day >= task.baseline_start_date && start_day < task.baseline_end_date
       task.start_date = start_day
     end
@@ -90,9 +92,10 @@ class TasksController < ApplicationController
 
   def destroy
     @task = Task.find(params[:id].to_i)
+    milestone = Milestone.find(@task.milestone_id)
     @task.destroy
     flash[:notice] = 'Task Deleted'
-    redirect_to root_path
+    redirect_to show_milestone_path(id: milestone.id)
   end
 
   def show

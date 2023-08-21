@@ -5,4 +5,7 @@
       <%= render 'form' %>
     </div>
   </div>
+  <%= link_to "Delete Task", destroy_task_path(id: @task.id), data:{turbo_method: :delete, turbo_confirm: "Delete #{@task.name}"},class:'btn btn-danger' %>
 </div>
+
+ 

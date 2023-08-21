@@ -1,4 +1,4 @@
-<%= form_with model:@milestone, url: create_milestone_path do |m| %>
+<%= form_with model:@milestone, local: true do |m| %>
 
   <p> <h4> <%= m.label :Milestone_name %> </h4> </p>
   <%= m.text_field :name, class:'form-control' %>
@@ -20,6 +20,7 @@
       <%= m.select :end_year,  options_for_select(Project.year_options)  %>
     </div>
   </div>
+
   <%= m.submit(@milestone.new_record? ? "Create Milestone" : "Edit Milestone", class:'btn', style:'color: white; background-color: #5c0101') %>
 <% end %>
 <%= link_to "Cancel", ( @milestone.new_record? ? root_path : show_project_path(id: @project.id) ), class:'btn btn-secondary mt-4 mb-4' %>

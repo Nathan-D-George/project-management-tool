@@ -45,7 +45,29 @@ class MilestonesController < ApplicationController
 
   def update
     milestone = Milestone.find(params[:id])
-    debugger
+    milestone.name = params[:milestone][:name]
+    milestone.description = params[:milestone][:description]
+
+    days = get_start_and_end_dates_parts
+    start_day        = days[:start].join('/').to_date
+    end_day          = days[:end].join('/').to_date
+    
+    if start_day >= milestone.baseline_start_date && start_day < milestone.baseline_end_date
+      milestone.start_date = start_day
+    end
+
+    if (end_day > milestone.baseline_start_date && end_day <= milestone.baseline_end_date) 
+      milestone.end_date = end_day
+    end
+
+    # debugger
+    if milestone.save
+      flash[:notice] = 'Milestone Updated'
+      redirect_to show_milestone_path(id: milestone.id)
+    else
+      flash[:alert]  = 'Something went wrong'
+      render :edit
+    end
   end
 
   def destroy
@@ -58,7 +80,15 @@ class MilestonesController < ApplicationController
   def show
     @milestone = Milestone.find(params[:id].to_i)
     @project   = Project.find(@milestone.project_id)
+    @tasks     = Task.where(milestone_id: @milestone.id).order('id DESC')
   end
 
+  private
+
+  def get_start_and_end_dates_parts
+    start_day_parts  = [ params[:milestone][:start_day], params[:milestone][:start_month], params[:milestone][:start_year] ]
+    end_day_parts    = [ params[:milestone][:end_day],   params[:milestone][:end_month],   params[:milestone][:end_year] ]
+    {start: start_day_parts, end: end_day_parts}
+  end
 
 end

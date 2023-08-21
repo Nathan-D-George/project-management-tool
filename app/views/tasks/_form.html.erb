@@ -18,6 +18,13 @@
       <%= t.select :end_month, options_for_select(Task.month_options) %>
       <%= t.select :end_year,  options_for_select(Task.year_options)  %>
     </div>
+
+  <% if !@task.new_record? %>
+    <p>
+    <%= t.check_box :complete, {}, true, false %>
+    <%= t.label :complete? %>
+    </p>
+  <% end %>
   </div>
   <div class='col-6'>
     <p> <h4> <%= t.label :Assignee %> </h4> </p>
