@@ -20,7 +20,7 @@
   </div>
   <%= link_to "New Task", new_task_path(id: @milestone.id), class:'btn mt-4 mb-4 show_button' %>
   <% if @tasks.present? %>
-    <div>
+    <div class='col-md-8'>
       <%= render 'tasks_list' %>
     </div>
   <% end %>

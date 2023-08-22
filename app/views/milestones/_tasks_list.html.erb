@@ -1,9 +1,26 @@
-<% @tasks.each do |t| %>
-  <div class='row'>
-  <% if t.complete %>
-    <p><%= link_to t.name, show_task_path(id: t.id), style:'color: white; text-decoration: none' %></p>
-  <% else %>
-    <p><%= link_to t.name, show_task_path(id: t.id), style:'color: red; text-decoration: none' %></p>
+<table class="table" style='color:white'>
+  <thead>
+    <tr>
+      <th scope="col"> <%= @milestone.name %> </th>
+      <th scope="col">Complete?</th>
+      <th scope="col">Assignee</th>
+      <th scope="col">Due Date</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @tasks.each do |t| %>
+    <tr>
+      <% if t.complete %>
+        <td> <%= link_to t.name, show_task_path(id: t.id), style:'color: #29d916; text-decoration: none' %></td>
+        <td> complete </td>
+      <% else %>
+        <td> <%= link_to t.name, show_task_path(id: t.id), style:'color: red; text-decoration: none' %></td>
+        <td> incomplete </td>
+      <% end %>
+      
+      <td> <%= User.find(t.assigned_to).email %> </td>
+      <td> <%= t.end_date %>  </td>
+    </tr>
   <% end %>
-  </div>
-<% end %>
+  </tbody>
+</table>

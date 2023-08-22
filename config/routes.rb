@@ -24,8 +24,8 @@ Rails.application.routes.draw do
   delete '/projects/destroy', to: 'projects#destroy', as: 'destroy_project'
   get    '/projects/show/:id',to: 'projects#show',    as: 'show_project'
 
-  post   '/projects/add_member', to: 'projects#add_member',      as: 'add_member_to_project'
-  delete '/projects/lose_member', to: 'projects#remove_member',    as: 'remove_member_from_project'
+  post   '/projects/add_member',  to: 'projects#add_member',    as: 'add_member_to_project'
+  delete '/projects/lose_member', to: 'projects#remove_member', as: 'remove_member_from_project'
   root to: 'pages#home'
 
   get '/about', to: 'information#about'
@@ -56,6 +56,7 @@ end
   Yahweh will Manifest
   Yeshua
   Who is this man?
+  Praise (Elevation)
   Good (can't be anything else)
 
 =end

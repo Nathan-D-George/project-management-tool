@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   $milestone_id = nil
-
+  
   def new
     redirect_to root_path if !correct_project_leader?(params[:id].to_i)
     @task         = Task.new(milestone_id: params[:id].to_i)
@@ -42,6 +42,7 @@ class TasksController < ApplicationController
 
     if task.save
       flash[:notice] = 'Task created'
+      update_milestone(milestone.id)
       redirect_to show_task_path(id: task.id)
     else
       flash[:alert]  = 'Something went wrong'
@@ -77,12 +78,13 @@ class TasksController < ApplicationController
       task.start_date = start_day
     end
 
-    if (end_day > task.baseline_start_date && end_day <= milestone.baseline_end_date) 
+    if (end_day > task.baseline_start_date && end_day <= task.baseline_end_date) 
       task.end_date = end_day
     end
 
     if task.save
       flash[:notice] = 'Task Updated'
+      update_milestone(task.milestone_id)
       redirect_to show_task_path(id: task.id)
     else
       flash[:alert]  = 'Something went wrong'
@@ -116,5 +118,18 @@ class TasksController < ApplicationController
     start_day_parts  = [ params[:task][:start_day], params[:task][:start_month], params[:task][:start_year] ]
     end_day_parts    = [ params[:task][:end_day],   params[:task][:end_month], params[:task][:end_year] ]
     {start: start_day_parts, end: end_day_parts}
+  end
+
+  def update_milestone(id)
+    milestone = Milestone.find(id)
+    milestone.update_completion
+    milestone.save
+    update_project(milestone.project_id)
+  end
+
+  def update_project(id)
+    project = Project.find(id)
+    project.update_percent_complete
+    project.save
   end
 end

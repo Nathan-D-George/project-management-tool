@@ -5,7 +5,13 @@ class Project < ApplicationRecord
   has_many_attached :attachments, dependent: :destroy
 
   has_many :milestones, dependent: :destroy
-  
+ 
+  def update_percent_complete
+    sum = 0
+    self.milestones.each {|milestone| sum += 100 if milestone.completion == 100 }
+    self.percent_complete = sum.to_f/self.milestones.count
+  end
+
   def members
     members = []
     User.all.each{|u|

@@ -70,6 +70,7 @@
         <% @milestones.each do |milestone| %>
           <div class='big-block col-md-3 mb-4' style='margin-right:30px;'>
             <p> <h5> <%= link_to milestone.name, show_milestone_path(id: milestone.id), class:'show_button', style:' text-decoration:none' %> </h5> </p>
+            <p> <h6> <%= milestone.completion %> % </h6> </p>
             <p> Description:  </p> <%= milestone.description %>
           </div>
         <% end %>
