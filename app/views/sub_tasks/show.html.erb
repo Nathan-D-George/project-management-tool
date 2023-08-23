@@ -1,0 +1,12 @@
+<%= render 'page_topper' %>
+
+ <div style='margin-left:30px'>
+  <p> <h3> <%= @sub_task.name %> </h3> </p>
+  <div class='row', style='padding-bottom:20px; text-align:justify'>
+    <div class='col-md-6' >
+      <p> <strong> Description: </strong> </p> <p style='padding-left:20px'><%= @sub_task.description %> </p>
+    </div>
+  </div>
+  <%= link_to "Edit Sub-Task", edit_sub_task_path(id: @sub_task.id), class:'btn show_button'%>
+  <hr class='col-md-11'>
+</div> 

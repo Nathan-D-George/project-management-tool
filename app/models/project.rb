@@ -8,8 +8,14 @@ class Project < ApplicationRecord
  
   def update_percent_complete
     sum = 0
-    self.milestones.each {|milestone| sum += 100 if milestone.completion == 100 }
-    self.percent_complete = sum.to_f/self.milestones.count
+    num = 0
+    self.milestones.each {|milestone| 
+      milestone.tasks.each{|task|
+        sum += 100 if task.complete == true
+        num += 1
+      }
+    }
+    self.percent_complete = sum.to_f/num 
   end
 
   def members

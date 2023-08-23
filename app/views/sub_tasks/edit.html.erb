@@ -1,0 +1,12 @@
+<%= render 'page_topper' %>
+
+<div class='row' style='padding-top:30px'>
+  <div class='col-4'></div>
+    <div class='col-md-4'>
+      <h1>Edit Sub-Task</h1>
+      <%= render 'form' %>
+    </div>
+  </div>
+  <%= link_to "Delete Sub Task", destroy_sub_task_path(id: @sub_task.id), data:{turbo_method: :delete, turbo_confirm: "Delete #{@sub_task.name}"},
+  class:'btn', style:'color:white; background-color: red' %>
+</div> 

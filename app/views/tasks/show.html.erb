@@ -1,12 +1,4 @@
-<p>
-  <small>
-    <small>
-      <%= link_to @project.name, show_project_path(id: @project.id), style:'color:white; text-decoration: none' %> >> 
-      <%= link_to @milestone.name, show_milestone_path(id: @milestone.id), style:'color: white; text-decoration: none' %> >> 
-      <%= @task.name %>
-    </small>
-  </small>
-</p>
+<%= render 'page_topper' %>
 
  <div style='margin-left:30px'>
   <p> <h3> <%= @task.name %> </h3> </p>
@@ -20,6 +12,7 @@
   <hr class='col-md-11'>
   <div class='row' style='margin-left:0px'>
     Sub-Tasks List
+    <%= render 'sub_tasks_list' %>
   </div>
-  <%= link_to "New Sub-Task", "#", class:'btn mt-4 mb-4 show_button' %>
-</div>
+  <%= link_to "New Sub-Task", new_sub_task_path(id: @task.id), class:'btn mt-4 mb-4 show_button' %>
+</div> 

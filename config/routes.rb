@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  resources :sub_tasks, except: [:new, :edit, :destroy, :show]
+  get    '/sub_tasks/new',     to: 'sub_tasks#new',     as: 'new_sub_task'
+  get    '/sub_tasks/show',    to: 'sub_tasks#show',    as: 'show_sub_task'
+  post   '/sub_tasks/create',  to: 'sub_tasks#create',  as: 'create_sub_task'
+  get    '/sub_tasks/edit',    to: 'sub_tasks#edit',    as: 'edit_sub_task'
+  patch  '/sub_tasks/update',  to: 'sub_tasks#update',  as: 'update_sub_task'
+  delete '/sub_tasks/destroy', to: 'sub_tasks#destroy', as: 'destroy_sub_task'
+  
   resources :tasks, except: [:new, :edit, :destroy, :show]
   get    '/tasks/new',     to: 'tasks#new',     as: 'new_task'
   post   '/tasks/create',  to: 'tasks#create',  as: 'create_task'
@@ -57,6 +65,8 @@ end
   Yeshua
   Who is this man?
   Praise (Elevation)
+  Welcome Resurrection (Elevation)
   Good (can't be anything else)
+  Crowned (highlands worship, Rebecca Hart)
 
 =end

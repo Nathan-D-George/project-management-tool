@@ -1,0 +1,18 @@
+<table class="table" style='color:white'>
+  <thead>
+    <tr>
+      <th scope="col"> <%= @task.name %> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @sub_tasks.each do |st| %>
+      <tr>
+        <% if st.complete %>
+          <td> <%= link_to st.name, show_sub_task_path(id: st.id), style:'color: #29d916; text-decoration: none' %></td>
+        <% else %>
+          <td> <%= link_to st.name, show_sub_task_path(id: st.id), style:'color: red; text-decoration: none' %></td>
+        <% end %>      
+      </tr>
+    <% end %>
+  </tbody>
+</table>

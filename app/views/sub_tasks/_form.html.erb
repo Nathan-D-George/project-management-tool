@@ -1,0 +1,18 @@
+<%= form_with model: @sub_task, local: true do |st| %>
+  <%= st.label :name %>
+  <%= st.text_field :name, class:'form-control' %>
+
+  <%= st.label :description %>
+  <%= st.text_area :description, class:'form-control' %>
+
+  <% if !@sub_task.new_record? %>
+    <p class='mt-3'>
+      <%= st.check_box :complete, {}, [true, false]%>
+      <%= st.label :complete %>
+    </p>
+  <% end %>
+
+  <%= st.submit(@sub_task.new_record? ? "Create Sub-Task" : "Update Sub-Task", class:'btn', style:'color: white; background-color: #5c0101')%>
+<% end %>
+
+<%= link_to "Cancel", show_task_path(id: @task.id), class:'btn btn-secondary mt-3' %>

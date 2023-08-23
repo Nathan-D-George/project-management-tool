@@ -11,4 +11,4 @@ class Milestone < ApplicationRecord
     self.tasks.each {|task| done += 100 if task.complete == true }
     self.completion = done.to_f/tasks.count
   end
-end
+end 

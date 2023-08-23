@@ -11,16 +11,17 @@
       </div>
     </div>
     <% @projects.each do |project| %>
-    <div class="big-block col-md-3 mb-4" style='margin-right:30px;'>
-      <div style="padding-left:10px;">
-        <%= turbo_stream_from "projects" %>
-        <div id="projects">
-          <%= render project%> 
+      <% if project.members.include?(current_user) %>
+        <div class="big-block col-md-3 mb-4" style='margin-right:30px;'>
+          <div style="padding-left:10px;">
+            <%= turbo_stream_from "projects" %>
+            <div id="projects">
+              <%= render project%> 
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      <% end %>
     <% end %>
-
   </div>
   <%= turbo_stream_from "users" %>
   <div id="users">

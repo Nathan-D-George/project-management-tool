@@ -23,7 +23,7 @@ class TasksController < ApplicationController
     
     if start_day >= milestone.start_date && start_day < milestone.end_date
       task.start_date          = start_day
-      task.baseline_start_date = start_date
+      task.baseline_start_date = start_day
     else
       task.start_date          = milestone.start_date
       task.baseline_start_date = milestone.start_date 
@@ -102,6 +102,7 @@ class TasksController < ApplicationController
 
   def show
     @task      = Task.find(params[:id])
+    @sub_tasks = SubTask.where(task_id: @task.id).all
     @milestone = Milestone.find(@task.milestone_id)
     @project   = Project.find(@milestone.project_id)
   end
@@ -120,16 +121,4 @@ class TasksController < ApplicationController
     {start: start_day_parts, end: end_day_parts}
   end
 
-  def update_milestone(id)
-    milestone = Milestone.find(id)
-    milestone.update_completion
-    milestone.save
-    update_project(milestone.project_id)
-  end
-
-  def update_project(id)
-    project = Project.find(id)
-    project.update_percent_complete
-    project.save
-  end
 end

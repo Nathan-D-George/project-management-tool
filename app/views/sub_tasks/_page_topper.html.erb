@@ -1,0 +1,12 @@
+<p>
+  <small>
+    <small>
+      <%= link_to @project.name, show_project_path(id: @project.id), style:'color:white; text-decoration: none' %> >> 
+      <%= link_to @milestone.name, show_milestone_path(id: @milestone.id), style:'color: white; text-decoration: none' %> >> 
+      <%= link_to @task.name, show_task_path(id: @task.id), style:'color: white; text-decoration: none' %> >> 
+      <% if @sub_task.present? %>
+        <%= @sub_task.name %>
+      <% end %>
+    </small>
+  </small>
+</p>

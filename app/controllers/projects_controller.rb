@@ -3,7 +3,6 @@ class ProjectsController < ApplicationController
   before_action :project_leaders_only, only: [:edit, :delete, :add_member, :remove_member]
   $proj_id = nil
 
-
   def new
     @project  = Project.new
     @users    = User.all_except(current_user)
@@ -45,7 +44,7 @@ class ProjectsController < ApplicationController
   end
 
   def add_member
-    return if current_user.id != $proj_id
+    return if Project.find($proj_id).leader != current_user.id
     participant = Participant.new
     participant.user_id = params[:id]
     participant.project_id = $proj_id
@@ -58,7 +57,7 @@ class ProjectsController < ApplicationController
   end
 
   def remove_member
-    return if current_user.id != $proj_id
+    return if Project.find($proj_id).leader != current_user.id
     user = User.find(params[:id].to_i)
     @participant = Participant.where(user_id: user.id, project_id: $proj_id).first
     @participant.destroy

@@ -19,7 +19,7 @@
       <%= t.select :end_year,  options_for_select(Task.year_options)  %>
     </div>
 
-  <% if !@task.new_record? %>
+  <% if !@task.new_record? && @task.sub_tasks.blank?%>
     <p>
     <%= t.check_box :complete, {}, true, false %>
     <%= t.label :complete? %>

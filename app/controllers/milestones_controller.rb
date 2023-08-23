@@ -60,7 +60,6 @@ class MilestonesController < ApplicationController
       milestone.end_date = end_day
     end
 
-    # debugger
     if milestone.save
       flash[:notice] = 'Milestone Updated'
       redirect_to show_milestone_path(id: milestone.id)
