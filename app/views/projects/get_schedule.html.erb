@@ -1,0 +1,60 @@
+<h3> <%= @project.name %> schedule </h3>
+
+<div class='row d-flex justify-content-center' style='padding-top:30px'>
+  <div class='col-md-10'>
+    <table class="table" style="color:white">
+      <thead>
+        <tr>      
+          <th scope="col"></th>
+          <th scope="col"><h4> PM-Tool             </h4></th>
+          <th scope="col"><h4> Baseline Start Date </h4></th>
+          <th scope="col"><h4> Start Date          </h4></th>
+          <th scope="col"><h4> Baseline End Date   </h4></th>
+          <th scope="col"><h4> End Date            </h4></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row"></th>
+          <td> <h5> <%= @project.name %> </h5> </td>
+          <td> <%= @project.baseline_start_date %> </td>
+          <td> <%= @project.start_date %>          </td>
+          <td> <%= @project.baseline_end_date %>   </td>
+          <td> <%= @project.end_date %>            </td>
+        </tr>
+        <% @milestones.each do |milestone| %>
+          <tr>
+            <th scope="row"></th>
+            <td style="padding-left:35px"> <h6> <%= milestone.name %> </h6> </td>
+            <td> <%= milestone.baseline_start_date %> </td>
+            <td> <% if milestone.baseline_start_date != milestone.start_date %> <%= milestone.start_date %> <% end %> </td>
+            <td> <%= milestone.baseline_end_date %>   </td>
+            <td> <% if milestone.baseline_end_date != milestone.end_date %>     <%= milestone.end_date %>   <% end %> </td> 
+          </tr>
+          <% milestone.tasks.each do |task| %>
+            <tr>
+              <th scope="row"></th>
+              <td style="padding-left:70px"> <%= task.name %>       </td>
+              <td> <%= task.baseline_start_date %> </td>
+              <td> <% if task.baseline_start_date != task.start_date %> <%= task.start_date %> <%else%> baseline <%end%> </td>
+              <td> <%= task.baseline_end_date %>   </td>
+              <td> <% if task.baseline_end_date != task.end_date %>     <%= task.end_date %>   <%else%> baseline <%end%> </td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+
+    <div>
+      <% if @time_completed.round(0) > @project.percent_complete     %>
+        <p> Project is behind schedule </p>
+      <% elsif @time_completed.round(0) == @project.percent_complete %>
+        <p> Project is just about on schedule </p>
+      <% elsif @time_completed.round(0) < @project.percent_complete  %>
+        <p> Project is ahead of schedule </p>
+      <% end %>
+      <p> Project predicted to end on <%= @predicted_end_date %> </p>
+    </div>
+
+  </div>
+</div>

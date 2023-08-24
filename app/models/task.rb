@@ -11,7 +11,7 @@ class Task < ApplicationRecord
     self.sub_tasks.each {|sub_task|
       sum += 1 if sub_task.complete == true
     }
-    self.complete = true if sum == self.sub_tasks.count
+    sum == self.sub_tasks.count ? self.complete = true : self.complete = false 
   end
 
   def self.day_options

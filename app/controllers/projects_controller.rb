@@ -82,6 +82,7 @@ class ProjectsController < ApplicationController
     project.end_date    = end_parts.join('/').to_date   if end_parts.join('/').to_date > project.start_date
     if project.save
       flash[:notice] = 'Project successfully updated'
+      check_end_dates(project.id)
       redirect_to show_project_path(id: project.id)
     else
       flash[:alert]  = 'Something went wrong'
@@ -98,6 +99,21 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     @project.destroy
     flash[:notice] = 'Project Successfully Destroyed'
+  end
+
+  def get_schedule
+    @project = Project.find(params[:id])
+    @milestones = @project.milestones
+    @tasks = []
+    @milestones.each {|milestone| @tasks.append(milestone.tasks) }
+    today = Date.today
+    @time_completed     = (today - @project.start_date)/(@project.end_date - @project.start_date).to_f * 100
+    rate_of_work        = @project.percent_complete.to_f / @time_completed
+    days_left           = (@project.end_date - today).to_f / rate_of_work
+    @predicted_end_date = today + days_left
+  end
+
+  def get_budget
   end
 
   private

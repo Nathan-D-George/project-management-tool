@@ -1,0 +1,10 @@
+<p>
+  <small>
+    <small>
+      <%= link_to @project.name, show_project_path(id: @project.id), style:'color:white; text-decoration: none' %> >> 
+      <% if !@milestone.new_record? %>
+        <%= @milestone.name %>
+      <% end %>
+    </small> 
+  </small>
+</p>

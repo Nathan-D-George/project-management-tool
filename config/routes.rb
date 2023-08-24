@@ -31,7 +31,8 @@ Rails.application.routes.draw do
   get    '/projects/destroy', to: 'projects#delete',  as: 'delete_this_project'
   delete '/projects/destroy', to: 'projects#destroy', as: 'destroy_project'
   get    '/projects/show/:id',to: 'projects#show',    as: 'show_project'
-
+  
+  get    '/projects/schedule',    to: 'projects#get_schedule',  as: 'get_schedule'
   post   '/projects/add_member',  to: 'projects#add_member',    as: 'add_member_to_project'
   delete '/projects/lose_member', to: 'projects#remove_member', as: 'remove_member_from_project'
   root to: 'pages#home'

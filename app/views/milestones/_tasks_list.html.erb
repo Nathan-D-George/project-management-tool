@@ -3,7 +3,8 @@
     <tr>
       <th scope="col"> <%= @milestone.name %> </th>
       <th scope="col">Complete?</th>
-      <th scope="col">Assignee</th>
+      <th scope="col">Description</th>
+      <th scope="col">Assignee</th>      
       <th scope="col">Due Date</th>
     </tr>
   </thead>
@@ -17,7 +18,7 @@
         <td> <%= link_to t.name, show_task_path(id: t.id), style:'color: red; text-decoration: none' %></td>
         <td> incomplete </td>
       <% end %>
-      
+      <td> <%= t.description.truncate(40) %> </td>
       <td> <%= User.find(t.assigned_to).email %> </td>
       <td> <%= t.end_date %>  </td>
     </tr>

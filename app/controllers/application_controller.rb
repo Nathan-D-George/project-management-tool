@@ -34,4 +34,16 @@ class ApplicationController < ActionController::Base
     project.save
   end
 
+  def check_end_dates(id)
+    project = Project.find(id)
+    project.milestones.each {|milestone|
+      milestone.end_date > project.end_date ? milestone.end_date = project.end_date : nil
+      milestone.save
+      milestone.tasks.each {|task|
+        task.end_date > milestone.end_date ? task.end_date = milestone.end_date : nil
+        task.save
+      }
+    }
+  end
+
 end

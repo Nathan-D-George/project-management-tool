@@ -2,6 +2,7 @@
   <thead>
     <tr>
       <th scope="col"> <%= @task.name %> </th>
+      <th scope="col"> Description </th>
     </tr>
   </thead>
   <tbody>
@@ -11,7 +12,8 @@
           <td> <%= link_to st.name, show_sub_task_path(id: st.id), style:'color: #29d916; text-decoration: none' %></td>
         <% else %>
           <td> <%= link_to st.name, show_sub_task_path(id: st.id), style:'color: red; text-decoration: none' %></td>
-        <% end %>      
+        <% end %>
+        <td> <%= st.description.truncate(40) %> </td>
       </tr>
     <% end %>
   </tbody>
