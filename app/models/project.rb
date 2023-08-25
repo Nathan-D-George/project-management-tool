@@ -5,7 +5,27 @@ class Project < ApplicationRecord
   has_many_attached :attachments, dependent: :destroy
 
   has_many :milestones, dependent: :destroy
- 
+
+  def expenses
+    expenses   = 0
+    milestones = self.milestones
+    milestones.each {|milestone|
+      tasks = milestone.tasks
+      tasks.each {|task|
+        duration = 1
+        day      = task.start_date
+        (task.end_date - task.start_date).to_i.times do
+          day      += 1.day
+          duration += 1 if day.on_weekday?
+        end
+        hours_worked = duration * 8
+        hourly_rate  = User.find(task.assigned_to).hourly_rate
+        expenses    += hours_worked * hourly_rate
+      }
+    }
+    self.expenses = expenses
+  end
+
   def update_percent_complete
     sum = 0
     num = 0

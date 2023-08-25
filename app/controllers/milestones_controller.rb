@@ -5,7 +5,6 @@ class MilestonesController < ApplicationController
   def new  
     project = Project.find(params[:id].to_i)
     redirect_to show_project_path(id: params[:id]) if current_user.id != project.leader
-    # @milestones = Milestone.all
     @milestone  = Milestone.new
     @project    = Project.find(params[:id].to_i)
     $project_id = params[:id]
@@ -16,6 +15,7 @@ class MilestonesController < ApplicationController
     project   = Project.find($project_id)
     milestone.name        = params[:milestone][:name]
     milestone.description = params[:milestone][:description]
+    milestone.budget      = params[:milestone][:budget]
     start_date_parts      = [ params[:milestone][:start_day], params[:milestone][:start_month], params[:milestone][:start_year] ]
     date  = start_date_parts.join("/").to_date
     milestone.start_date  = date if date >= project.start_date
@@ -47,6 +47,7 @@ class MilestonesController < ApplicationController
     milestone = Milestone.find(params[:id])
     milestone.name = params[:milestone][:name]
     milestone.description = params[:milestone][:description]
+    milestone.budget      = params[:milestone][:budget]
 
     days = get_start_and_end_dates_parts
     start_day        = days[:start].join('/').to_date

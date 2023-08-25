@@ -6,20 +6,29 @@
   <p> <h4> <%= m.label :Milestone_description %> </h4> </p>
   <%= m.text_field :description, class:'form-control' %>
 
-  <div>  </div>
+  <div>  
+  </div>
+
   <div class='row mb-4'>
+    <p class='mt-4'> <h5>Project dates: ( <%= @project.start_date%> - <%= @project.end_date %> ) </h5> </p>
     <div class='col-6'>
-      <p> <h4> <%= m.label  :start_date %> </h4> </p> 
+      <h4> <%= m.label  :start_date %> </h4>
       <%= m.select :start_day,   options_for_select(Project.day_options)   %>
       <%= m.select :start_month, options_for_select(Project.month_options) %>
       <%= m.select :start_year,  options_for_select(Project.year_options)  %>
     </div>
     <div class='col-6'>
-      <p> <h4> <%= m.label  :end_date %> </h4> </p>
+      <h4> <%= m.label  :end_date %> </h4>
       <%= m.select :end_day,   options_for_select(Project.day_options)   %>
       <%= m.select :end_month, options_for_select(Project.month_options) %>
       <%= m.select :end_year,  options_for_select(Project.year_options)  %>
     </div>
+  </div>
+
+  <div>
+    <h6> Project budget: <%= @project.budget %> </h6>
+    <%= m.label :budget %>
+    <%= m.number_field :budget, in: 1000.0..@project.budget, step: 1000.0, class:'form-control mt-2 mb-3'%>
   </div>
 
   <%= m.submit(@milestone.new_record? ? "Create Milestone" : "Edit Milestone", class:'btn', style:'color: white; background-color: #5c0101') %>
@@ -27,7 +36,7 @@
 <%= link_to "Cancel", ( @milestone.new_record? ? root_path : show_project_path(id: @project.id) ), class:'btn btn-secondary mt-4 mb-4' %>
 
 <% if !@milestone.new_record? %>
-  <div class=''>
+  <div>
     <p><%= link_to "Delete Milestone", destroy_milestone_path(id: @milestone.id), data:{turbo_method: :delete, turbo_confirm: "Delete?"}, class:'btn btn-danger', style:'width:200px;' %></p>
   </div>
 <% end %>

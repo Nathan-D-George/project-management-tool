@@ -35,10 +35,12 @@
           <input type='checkbox' id="collapsible2-head-nonmembers">
           <label for="collapsible2-head-nonmembers" style='color: white'> Non-Members </label>
           <div class="collapsible-text">
-
+            <% if @non_members.blank? %>
+              <p> No Non-members </p>
+            <% end %>
             <% @non_members.each do |nm|%>
               <p>
-                <%= link_to add_member_to_project_path(id: nm.id), data:{turbo_method: :post}, style:'text-decoration: none; color: #3b7cd1' do %>
+                <%= link_to assign_member_job_path(id: nm.id), style:'text-decoration: none; color: #3b7cd1' do %>
                   <%= fa_icon "plus-square-o", style:'color:#40c92e' %>
                   <%= fa_icon "user"%>
                 <% end %>
@@ -66,6 +68,7 @@
   <% if @project.leader == current_user.id %>
     <%= link_to "Edit Project", edit_project_path(id: @project.id), class:'btn mt-4 show_button' %>
     <%= link_to "Project Schedule", get_schedule_path(id: @project.id), class:'btn mt-4 show_button' %>
+    <%= link_to "Project Budget",   get_budget_path(id: @project.id), class:'btn mt-4 show_button' %>
     <hr class='col-11'>
     <h4>Milestones</h4>
     <% if @milestones.present? %>

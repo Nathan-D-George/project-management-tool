@@ -39,8 +39,12 @@ class ApplicationController < ActionController::Base
     project.milestones.each {|milestone|
       milestone.end_date > project.end_date ? milestone.end_date = project.end_date : nil
       milestone.save
+      milestone.start_date > milestone.end_date ? milestone.start_date = milestone.end_date : nil
+      milestone.save
       milestone.tasks.each {|task|
         task.end_date > milestone.end_date ? task.end_date = milestone.end_date : nil
+        task.save
+        task.start_date > task.end_date ? task.start_date = task.end_date : nil
         task.save
       }
     }

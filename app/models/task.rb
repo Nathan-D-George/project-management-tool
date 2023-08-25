@@ -14,6 +14,19 @@ class Task < ApplicationRecord
     sum == self.sub_tasks.count ? self.complete = true : self.complete = false 
   end
 
+  def expenses
+    user = User.find(self.assigned_to)
+    rate = user.hourly_rate
+    day = self.start_date
+    duration = 1
+    (self.end_date - self.start_date).to_i.times do
+      day += 1.day
+      duration += 1 if day.on_weekday?      
+    end
+    hours = duration * 8
+    return hours*rate
+  end
+
   def self.day_options
     days = []
     31.times do |d|

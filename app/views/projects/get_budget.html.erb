@@ -1,0 +1,51 @@
+<h3> <%= @project.name %> Budget </h3>
+
+<div class='row d-flex justify-content-center' style='padding-top:30px'>
+  <div class='col-md-10'>
+    <table class="table" style="color:white">
+      <thead>
+        <tr>      
+          <th scope="col"></th>
+          <th scope="col"><h4> PM-Tool         </h4></th>
+          <th scope="col"><h4> Baseline Budget </h4></th>
+          <th scope="col"><h4> Actual Budget   </h4></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row"></th>
+          <td> <h5> <%= @project.name %> </h5> </td>
+          <td> <h5> <%= number_to_currency(@project.budget, :unit=>'R ') %> </h5> </td>
+          <% if @project.expenses < @project.budget %>
+            <td> <h5 style="color:green"> <%= number_to_currency(@project.expenses, :unit=>'R ') %> </h5> </td>
+          <% else %>
+            <td> <h5 style="color:red">   <%= number_to_currency(@project.expenses, :unit=>'R ') %> </h5> </td>
+          <% end %>
+        </tr>
+        <% @all_expenses.each do |instance| %>
+          <tr>
+            <th scope="row"></th>
+            <% if instance[:milestone].present? %>
+              <td style="padding-left:35px"> <h6> <%= instance[:milestone] %> </h6> </td>
+              <td> <h6> <%= instance[:budget] %> </h6> </td>
+              <td> <h6> <%= instance[:expense] %> </h6> </td>
+            <% elsif instance[:task].present? %>
+              <td style="padding-left:70px"> <%= instance[:task] %> </td>
+              <td>  </td>
+              <td> <%= instance[:expense] %> </td>
+            <% end %>            
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <div>
+      <% if @project.expenses > @project.budget     %>
+        <p style='color:red'> Project is over budget </p>
+      <% elsif @project.expenses < @project.budget  %>
+        <p style='color:green'> Project is under budget </p>
+      <% end %>
+    </div>
+
+  </div>
+</div>

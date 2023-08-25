@@ -1,0 +1,14 @@
+<div style='margin-left:30px'>
+  <p> <h4> Assign <%= @user.email %> job </h4> </p>
+  <div class='row', style='padding-bottom:20px; text-align:justify'>
+    <div class='col-md-6' >
+    <%= form_with model:@user, url: add_member_to_project_path, method: :post do |f| %>
+      <div class='field'>
+        <h5><%= f.label  :job %> </h5> 
+        <%= f.select :job, options_for_select(User.job_options) %>
+      </div>
+      <%= f.submit "Add member", data:{turbo_confirm: "Assign #{@user.email} this job?"}, class:'btn mt-4 mb-4', style:'color:white; background-color: #5c0101'%>
+    <% end %>
+    <%= link_to "Cancel", show_project_path(id: @project.id), class:'btn btn-secondary' %>
+  </div>
+</div>

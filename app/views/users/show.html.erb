@@ -5,9 +5,9 @@
         <h3> <%= @user.email %> </h3>
       </div>
       <div class="card-body" style='background-color: rgb(57,57,57)'>
-        <p>Role: <% @user.role %> </p>
-        <p>Job: </p>
-        <p>Hourly Rate: </p>
+        <p>Role: <%= @user.role %> </p>
+        <p>Job: <%=  @user.job  %> </p>
+        <p>Hourly Rate: R <%= @user.hourly_rate %></p>
       </div>
       <div class="card-footer text-muted" style='background-color: darkgray'>
       </div>

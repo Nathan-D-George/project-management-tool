@@ -33,6 +33,8 @@ Rails.application.routes.draw do
   get    '/projects/show/:id',to: 'projects#show',    as: 'show_project'
   
   get    '/projects/schedule',    to: 'projects#get_schedule',  as: 'get_schedule'
+  get    '/projects/budget',      to: 'projects#get_budget',    as: 'get_budget'
+  get    '/projects/add_member',  to: 'projects#assign_job',    as: 'assign_member_job'
   post   '/projects/add_member',  to: 'projects#add_member',    as: 'add_member_to_project'
   delete '/projects/lose_member', to: 'projects#remove_member', as: 'remove_member_from_project'
   root to: 'pages#home'
@@ -49,25 +51,3 @@ Rails.application.routes.draw do
 
 end
 
-=begin
-
-  Lord of my life
-  Here is my heart
-  Been so good
-  Fear is not my future
-  Costly
-  One name
-  Build your church
-  More than Able
-  Firm Foundation
-  Jehovah
-  Yahweh
-  Yahweh will Manifest
-  Yeshua
-  Who is this man?
-  Praise (Elevation)
-  Welcome Resurrection (Elevation)
-  Good (can't be anything else)
-  Crowned (highlands worship, Rebecca Hart)
-
-=end
