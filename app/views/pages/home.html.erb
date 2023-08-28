@@ -23,10 +23,6 @@
       <% end %>
     <% end %>
   </div>
-  <%= turbo_stream_from "users" %>
-  <div id="users">
-    <%= render @users %>
-  </div>
   
 <% else %>
   <%= link_to "Log in",  new_user_session_path, class:'btn btn-outline-primary' %>

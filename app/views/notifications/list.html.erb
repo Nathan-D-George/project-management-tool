@@ -1,0 +1,14 @@
+
+ <div class="col-md-10" style='margin-left:30px'>
+  <p>  <h1>Notifications#list</h1> </p>
+  <div class='row', style='padding-bottom:20px; text-align:justify'>
+    <div class='col-md-6' >
+
+<%= turbo_stream_from "notifications" %>
+<div id="notifications">
+  <%= render @notifications %>
+</div> 
+
+    </div>
+  </div>
+</div>

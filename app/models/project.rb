@@ -6,6 +6,8 @@ class Project < ApplicationRecord
 
   has_many :milestones, dependent: :destroy
 
+  has_many :notifications, dependent: :destroy
+
   def expenses
     expenses   = 0
     milestones = self.milestones

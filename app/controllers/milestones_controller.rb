@@ -31,6 +31,9 @@ class MilestonesController < ApplicationController
     
     if milestone.save
       flash[:notice] = 'Successfully added milestone'
+      notification   = Notification.new(project_id: project.id)
+      notification.milestone_created_notification(milestone.name)
+      notification.save
       redirect_to show_milestone_path(id: milestone.id)
     else
       flash[:alert]  = 'Something went wrong'
@@ -63,6 +66,9 @@ class MilestonesController < ApplicationController
 
     if milestone.save
       flash[:notice] = 'Milestone Updated'
+      notification   = Notification.new(project_id: milestone.project_id)
+      notification.milestone_updated_notification(milestone.name)
+      notification.save
       redirect_to show_milestone_path(id: milestone.id)
     else
       flash[:alert]  = 'Something went wrong'
@@ -73,6 +79,9 @@ class MilestonesController < ApplicationController
   def destroy
     @milestone = Milestone.find(params[:id])
     @milestone.destroy
+    notification = Notification.new(project_id: @milestone.project_id)
+    notification.milestone_deleted_notification(@milestone.name)
+    notification.save
     flash[:notice] = 'Deleted Milestone'
     redirect_to root_path
   end

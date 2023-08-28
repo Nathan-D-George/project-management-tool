@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get    '/notifications/list',    to: 'notifications#list',    as: 'list_notifications'
+
   resources :sub_tasks, except: [:new, :edit, :destroy, :show]
   get    '/sub_tasks/new',     to: 'sub_tasks#new',     as: 'new_sub_task'
   get    '/sub_tasks/show',    to: 'sub_tasks#show',    as: 'show_sub_task'
@@ -71,6 +73,8 @@ end
   Praise (Elevation)
   Welcome Resurrection (Elevation)
   Good (can't be anything else)
+  Show me your Glory
   Crowned (highlands worship, Rebecca Hart)
+  All hail the Power of Jesus name
 
 =end

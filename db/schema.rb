@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_24_123856) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_28_083513) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -50,6 +50,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_24_123856) do
     t.integer "project_id", null: false
     t.integer "budget"
     t.index ["project_id"], name: "index_milestones_on_project_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer "kind", default: 0
+    t.string "message"
+    t.integer "project_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_notifications_on_project_id"
   end
 
   create_table "participants", force: :cascade do |t|
@@ -111,6 +120,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_24_123856) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "milestones", "projects"
+  add_foreign_key "notifications", "projects"
   add_foreign_key "participants", "projects"
   add_foreign_key "participants", "users"
   add_foreign_key "sub_tasks", "tasks"

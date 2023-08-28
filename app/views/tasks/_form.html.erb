@@ -4,7 +4,7 @@
 
   <%= t.label :description %>
   <%= t.text_area :description, class:'form-control' %>
-
+  <p class='mt-4'> <h5>Milestone dates: ( <%= @milestone.start_date%> - <%= @milestone.end_date %> ) </h5> </p>
   <div class='row'>
     <div class='col-6'>
       <p> <h4> <%= t.label :start_date %> </h4> </p>

@@ -43,6 +43,9 @@ class TasksController < ApplicationController
     if task.save
       flash[:notice] = 'Task created'
       update_milestone(milestone.id)
+      notification   = Notification.new(project_id: milestone.project_id)
+      notification.task_created_notification(task.name)
+      notification.save
       redirect_to show_task_path(id: task.id)
     else
       flash[:alert]  = 'Something went wrong'
@@ -84,6 +87,9 @@ class TasksController < ApplicationController
     if task.save
       flash[:notice] = 'Task Updated'
       update_milestone(task.milestone_id)
+      notification   = Notification.new(project_id: Milestone.find(task.milestone_id).project_id)
+      notification.task_updated_notification(task.name)
+      notification.save
       redirect_to show_task_path(id: task.id)
     else
       flash[:alert]  = 'Something went wrong'
@@ -94,6 +100,9 @@ class TasksController < ApplicationController
   def destroy
     @task = Task.find(params[:id].to_i)
     milestone = Milestone.find(@task.milestone_id)
+    notification   = Notification.new(project_id: milestone.project_id)
+    notification.task_deleted_notification(@task.name)
+    notification.save
     @task.destroy
     flash[:notice] = 'Task Deleted'
     redirect_to show_milestone_path(id: milestone.id)

@@ -1,0 +1,9 @@
+<% if notification.kind == "notice" %>
+  <p style="color: #2dde16">
+    <%= notification.message %>
+  </p>
+<% else %>
+  <p style="color: #ff0000">
+    <%= notification.message %>
+  </p>
+<% end %>

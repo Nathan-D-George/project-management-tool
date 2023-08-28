@@ -29,6 +29,9 @@ class ProjectsController < ApplicationController
       participant.user_id = current_user.id
       participant.project_id = project.id
       participant.save
+      notification = Notification.new(project_id: project.id)
+      notification.project_created_notification
+      notification.save
       redirect_to show_project_path(id: project.id)
     else
       flash[:alert]  = 'Something went wrong'
@@ -63,6 +66,9 @@ class ProjectsController < ApplicationController
     if participant.save
       flash[:notice] = "Added member to project"
       if user.save
+        notification   = Notification.new(project_id: $proj_id)
+        notification.member_added_notification(user.email)
+        notification.save
         flash[:notice] = "Assigned #{user.email} job"
       end
     else
@@ -79,6 +85,9 @@ class ProjectsController < ApplicationController
     user.save
     @participant = Participant.where(user_id: user.id, project_id: $proj_id).first
     if user.id != Project.find($proj_id).leader
+      notification   = Notification.new(project_id: $proj_id)
+      notification.member_removed_notification(user.email)
+      notification.save
       @participant.destroy
       flash[:notice] = "Removed member to project"
     end
@@ -103,6 +112,9 @@ class ProjectsController < ApplicationController
     if project.save
       flash[:notice] = 'Project successfully updated'
       check_end_dates(project.id)
+      notification = Notification.new(project_id: project.id)
+      notification.project_edited_notification
+      notification.save
       redirect_to show_project_path(id: project.id)
     else
       flash[:alert]  = 'Something went wrong'
