@@ -43,7 +43,6 @@ class ProjectsController < ApplicationController
     @members = @project.members
     @non_members = @project.non_members
     @milestones = Milestone.all.where(project_id: @project.id)
-    console
   end
 
   def assign_job
@@ -124,6 +123,7 @@ class ProjectsController < ApplicationController
 
   def get_schedule
     @project = Project.find(params[:id])
+    redirect_to show_project_path(id: @project.id) if @project.leader != current_user.id
     @milestones = @project.milestones
     @tasks = []
     @milestones.each {|milestone| @tasks.append(milestone.tasks) }
@@ -136,6 +136,7 @@ class ProjectsController < ApplicationController
 
   def get_budget
     @project  = Project.find(params[:id])
+    redirect_to show_project_path(id: @project.id) if @project.leader != current_user.id
     @milestones = @project.milestones
     @milestone_expenses = []
     @task_expenses      = []
@@ -154,7 +155,6 @@ class ProjectsController < ApplicationController
     }
     @project_expenses   = number_to_currency(@project.expenses, :unit=>'R ')
     @project.save
-    console
   end
 
   private

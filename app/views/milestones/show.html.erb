@@ -13,12 +13,16 @@
       <p> Description:</p> <%= @milestone.description %>
     </div>
   </div>
-  <%= link_to "Edit Milestone", edit_milestone_path(id: @milestone.id), class:'btn show_button'%>
+  <% if @project.leader == current_user.id %>
+    <%= link_to "Edit Milestone", edit_milestone_path(id: @milestone.id), class:'btn show_button'%>
+  <% end %>
   <hr class='col-md-11'>
   <div class='row' style='margin-left:0px'>
     Tasks List
   </div>
-  <%= link_to "New Task", new_task_path(id: @milestone.id), class:'btn mt-4 mb-4 show_button' %>
+  <% if @project.leader == current_user.id %>
+    <%= link_to "New Task", new_task_path(id: @milestone.id), class:'btn mt-4 mb-4 show_button' %>
+  <% end %>
   <% if @tasks.present? %>
     <div class='col-md-8'>
       <%= render 'tasks_list' %>

@@ -7,6 +7,8 @@
       <p> <strong> Description: </strong> </p> <p style='padding-left:20px'><%= @sub_task.description %> </p>
     </div>
   </div>
-  <%= link_to "Edit Sub-Task", edit_sub_task_path(id: @sub_task.id), class:'btn show_button'%>
+  <% if @project.leader == current_user.id %>
+    <%= link_to "Edit Sub-Task", edit_sub_task_path(id: @sub_task.id), class:'btn show_button'%>
+  <% end %>
   <hr class='col-md-11'>
 </div> 

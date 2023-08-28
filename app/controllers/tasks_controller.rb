@@ -59,7 +59,6 @@ class TasksController < ApplicationController
     @members = []
     members  = Project.find(Milestone.find(@task.milestone_id).project_id).members
     members.each { |m| @members.append(m.email) }
-    console
   end
 
   def update

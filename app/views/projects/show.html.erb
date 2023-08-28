@@ -58,8 +58,8 @@
     <% @project.attachments.each_with_index do |attachment, index| %>
       <p style='padding:10px'>
         <%= link_to url_for(attachment), style:'text-decoration: none; color: white' do %>
-            <%= fa_icon 'file-o' %>
-            <%= attachment.filename %>
+          <%= fa_icon 'file-o' %>
+          <%= attachment.filename %>
         <% end %>
       </p>
     <% end %>
@@ -69,7 +69,10 @@
     <%= link_to "Edit Project", edit_project_path(id: @project.id), class:'btn mt-4 show_button' %>
     <%= link_to "Project Schedule", get_schedule_path(id: @project.id), class:'btn mt-4 show_button' %>
     <%= link_to "Project Budget",   get_budget_path(id: @project.id), class:'btn mt-4 show_button' %>
-    <hr class='col-11'>
+  <% end %>
+  <hr class='col-11'>
+
+  <% if @members.include?(current_user) %>
     <h4>Milestones</h4>
     <% if @milestones.present? %>
       <div class='row'>
@@ -82,8 +85,8 @@
         <% end %>
       </div>
     <% end %>
-    <%= link_to "New Milestone", new_milestone_path(id: @project.id), class:'btn mt-4 show_button' %>
-  <% else %>
-    <hr class='col-11'>
+    <% if @project.leader == current_user.id %>
+      <%= link_to "New Milestone", new_milestone_path(id: @project.id), class:'btn mt-4 show_button' %>
+    <% end %>
   <% end %>
 </div>
